@@ -2,7 +2,9 @@ import 'package:chirp/screens/start/start_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-var kColorScheme = ColorScheme.fromSeed(seedColor: Colors.deepPurple);
+var kColorScheme = ColorScheme.fromSeed(
+  seedColor: const Color.fromRGBO(42, 113, 176, 1),
+);
 
 final theme = ThemeData(
   colorScheme: kColorScheme,
