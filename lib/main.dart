@@ -8,7 +8,7 @@ final theme = ThemeData(
   colorScheme: kColorScheme,
   useMaterial3: true,
   // Customizing text styles
-  textTheme: GoogleFonts.interTextTheme(),
+  textTheme: GoogleFonts.sourceSans3TextTheme(),
   appBarTheme: const AppBarTheme().copyWith(
     backgroundColor: kColorScheme.onPrimaryContainer,
     foregroundColor: kColorScheme.primaryContainer,
