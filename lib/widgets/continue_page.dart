@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:chirp/screens/authentication/signup.dart';
+import 'package:chirp/screens/authentication/signin.dart';
 import 'package:flutter/material.dart';
 
 class ContinuePage extends StatelessWidget {
@@ -25,7 +25,7 @@ class ContinuePage extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const SignupScreen()));
+                    builder: (context) => const SignInScreen()));
               },
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all(

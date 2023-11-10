@@ -1,8 +1,8 @@
-import 'package:chirp/widgets/signup/signup_form.dart';
+import 'package:chirp/widgets/signin/signin_form.dart';
 import 'package:flutter/material.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +18,14 @@ class SignUpScreen extends StatelessWidget {
                   'assets/images/logo.png',
                   height: 139,
                 ),
-                const SizedBox(height: 32,),
                 Text(
-                  'Sign up for free',
+                  'Sign in to your account',
                   style: Theme.of(context)
                       .textTheme
                       .titleLarge!
                       .copyWith(fontWeight: FontWeight.w600, fontSize: 23),
                 ),
-                const SignUpForm(),
+                const SignInForm(),
               ],
             ),
           ),
