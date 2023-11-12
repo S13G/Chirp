@@ -10,7 +10,7 @@ class SignInScreen extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 44),
+          padding: const EdgeInsets.only(top: 40),
           child: Center(
             child: Column(
               children: [

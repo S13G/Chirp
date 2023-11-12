@@ -1,9 +1,7 @@
 import 'package:cherry_toast/cherry_toast.dart';
 import 'package:chirp/screens/authentication/signin.dart';
-import 'package:chirp/screens/main/dashboard.dart';
 import 'package:chirp/widgets/signup/signup_buttons.dart';
 import 'package:flutter/material.dart';
-import '../signin/signin_buttons.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -22,11 +20,34 @@ class _SignUpFormState extends State<SignUpForm> {
   String? _passwordError;
   bool _isChecked = false;
 
-  bool get _isSignUpButtonEnabled =>
-      _enteredEmail.isNotEmpty && _enteredPassword.isNotEmpty;
+  void _validateFields() {
+    setState(() {
+      _emailError = _validateEmail(_enteredEmail);
+      _passwordError = _validatePassword(_enteredPassword);
+      print(_emailError);
+      print(_passwordError);
+    });
+  }
+
+  String? _validateEmail(String value) {
+    if (value.trim().isEmpty || value.trim().length <= 1) {
+      print(value);
+      return 'Invalid email';
+    }
+    return null;
+  }
+
+  String? _validatePassword(String value) {
+    if (value.trim().isEmpty || value.trim().length < 6) {
+      print(value);
+      return 'Password must not be less than 6 characters';
+    }
+    return null;
+  }
 
   Future<void> _acceptDetails() async {
-    if (_formKey.currentState!.validate()) {
+    _validateFields();
+    if (_emailError == null && _passwordError == null) {
       _formKey.currentState!.save();
       // loading circle
       showDialog(
@@ -49,13 +70,12 @@ class _SignUpFormState extends State<SignUpForm> {
             ));
           });
 
-      // Simulate a delay for the sign-in process
+      // Simulate a delay for the signup process
       await Future.delayed(const Duration(seconds: 2));
+
       setState(() {
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => const SignInScreen()));
-
-        // After the sign-in process, set loading state to false
 
         CherryToast.success(
           title: Text(
@@ -69,6 +89,18 @@ class _SignUpFormState extends State<SignUpForm> {
           toastDuration: const Duration(milliseconds: 1700),
         ).show(context);
       });
+    } else {
+      CherryToast.error(
+        title: Text(
+          'Invalid credentials',
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(color: Colors.red),
+        ),
+        animationDuration: const Duration(milliseconds: 1200),
+        toastDuration: const Duration(milliseconds: 1700),
+      ).show(context);
     }
   }
 
@@ -81,8 +113,6 @@ class _SignUpFormState extends State<SignUpForm> {
           padding: const EdgeInsets.symmetric(vertical: 24),
           child: Form(
             key: _formKey,
-            autovalidateMode: AutovalidateMode.always,
-            // always validate the form
             child: Column(
               children: [
                 // Email TextFormField
@@ -120,22 +150,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    if (value == null ||
-                        value.isEmpty ||
-                        value.trim().length <= 1) {
-                      setState(() {
-                        _emailError = 'Invalid email';
-                      });
-
-                      Future.delayed(const Duration(seconds: 3), () {
-                        setState(() {
-                          _emailError = null;
-                        });
-                      });
-
-                      return null;
-                    }
-                    return null;
+                    _validateEmail(value!);
                   },
                   onSaved: (value) {
                     _enteredEmail = value!;
@@ -190,21 +205,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   autocorrect: false,
                   enableSuggestions: false,
                   validator: (value) {
-                    if (value == null ||
-                        value.isEmpty ||
-                        value.trim().length < 6) {
-                      setState(() {
-                        _passwordError =
-                            'Password must not be less than 6 characters';
-                      });
-                      Future.delayed(const Duration(seconds: 3), () {
-                        setState(() {
-                          _passwordError = null;
-                        });
-                      });
-                      return null;
-                    }
-                    return null;
+                    _validatePassword(value!);
                   },
                   onSaved: (value) {
                     _enteredPassword = value!;
@@ -239,39 +240,32 @@ class _SignUpFormState extends State<SignUpForm> {
                   ],
                 ),
                 const SizedBox(height: 10),
-                Opacity(
-                  opacity: _isSignUpButtonEnabled ? 1.0 : 0.5,
-                  child: TextButton(
-                    onPressed: () {
-                      setState(() {
-                        _isSignUpButtonEnabled ? _acceptDetails : null;
-                      });
-                    },
-                    style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(
-                        const Size(320, 55),
+                TextButton(
+                  onPressed: _acceptDetails,
+                  style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(
+                      const Size(320, 55),
+                    ),
+                    backgroundColor: MaterialStateProperty.all(
+                      const Color.fromRGBO(90, 108, 234, 0.9),
+                    ),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
                       ),
-                      backgroundColor: MaterialStateProperty.all(
-                        const Color.fromRGBO(90, 108, 234, 0.9),
-                      ),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                  child: Text(
+                    'Sign up',
+                    style: Theme.of(context)
+                        .textTheme
+                        .copyWith()
+                        .bodyMedium!
+                        .copyWith(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
                         ),
-                      ),
-                    ),
-                    child: Text(
-                      'Sign up',
-                      style: Theme.of(context)
-                          .textTheme
-                          .copyWith()
-                          .bodyMedium!
-                          .copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20,
-                          ),
-                    ),
                   ),
                 ),
                 // Sign-in Button

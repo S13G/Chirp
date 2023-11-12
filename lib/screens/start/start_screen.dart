@@ -26,6 +26,7 @@ class _StartScreenState extends State<StartScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
         body: _delayed ? const Loader() : const ContinuePage());
   }
 }
