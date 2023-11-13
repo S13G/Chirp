@@ -1,7 +1,7 @@
-import 'package:chirp/screens/authentication/signup.dart';
+import 'package:chirp/screens/core/signup.dart';
 import 'package:flutter/material.dart';
 
-import 'package:chirp/screens/authentication/signin.dart';
+import 'package:chirp/screens/core/signin.dart';
 
 class SignUpButtons extends StatelessWidget {
   const SignUpButtons({super.key});

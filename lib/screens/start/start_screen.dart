@@ -1,5 +1,5 @@
-import 'package:chirp/widgets/continue_page.dart';
-import 'package:chirp/widgets/loader.dart';
+import 'package:chirp/widgets/misc/continue_page.dart';
+import 'package:chirp/widgets/misc/loader.dart';
 import 'package:flutter/material.dart';
 
 class StartScreen extends StatefulWidget {

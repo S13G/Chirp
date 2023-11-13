@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:chirp/screens/authentication/signin.dart';
+import 'package:chirp/screens/core/signin.dart';
 import 'package:flutter/material.dart';
 
 class ContinuePage extends StatelessWidget {

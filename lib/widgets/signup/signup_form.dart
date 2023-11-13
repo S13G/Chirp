@@ -1,5 +1,5 @@
 import 'package:cherry_toast/cherry_toast.dart';
-import 'package:chirp/screens/authentication/signin.dart';
+import 'package:chirp/screens/core/signin.dart';
 import 'package:chirp/widgets/signup/signup_buttons.dart';
 import 'package:flutter/material.dart';
 
@@ -150,7 +150,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    _validateEmail(value!);
+                    return _validateEmail(value!);
                   },
                   onSaved: (value) {
                     _enteredEmail = value!;
@@ -205,7 +205,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   autocorrect: false,
                   enableSuggestions: false,
                   validator: (value) {
-                    _validatePassword(value!);
+                    return _validatePassword(value!);
                   },
                   onSaved: (value) {
                     _enteredPassword = value!;
